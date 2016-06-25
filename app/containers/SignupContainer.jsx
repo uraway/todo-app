@@ -1,17 +1,17 @@
 import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import Login from '../components/Login';
-import * as AuthActions from '../actions/AuthActions';
+import Signup from '../components/Signup';
+import * as SignupActions from '../actions/SignupActions';
 
 @connect((state) => ({
-  auth: state.auth,
+  signup: state.signup,
 }))
 
-export default class LoginContainer extends Component {
+export default class SignupContainer extends Component {
 
   static propTypes = {
-    auth: PropTypes.object.isRequired,
+    signup: PropTypes.object.isRequired,
     dispatch: PropTypes.func.isRequired,
     location: PropTypes.object,
   };
@@ -25,11 +25,11 @@ export default class LoginContainer extends Component {
     const { dispatch, location } = this.props;
     const { router, backPathStore } = this.context;
     return (
-      <Login
+      <Signup
         router={router}
         location={location}
         backPathStore={backPathStore}
-        authActions={bindActionCreators(AuthActions, dispatch)}
+        signupActions={bindActionCreators(SignupActions, dispatch)}
         {...this.props}
       />
     );

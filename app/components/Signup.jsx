@@ -4,14 +4,14 @@ import { TextField, RaisedButton } from 'material-ui';
 export default class Login extends Component {
 
   static propTypes = {
-    auth: PropTypes.shape({
+    signup: PropTypes.shape({
       type: PropTypes.string,
       isLoading: PropTypes.bool,
       errors: PropTypes.object,
     }).isRequired,
 
-    authActions: PropTypes.shape({
-      login: PropTypes.func.isRequired,
+    signupActions: PropTypes.shape({
+      signup: PropTypes.func.isRequired,
     }).isRequired,
 
     location: PropTypes.object,
@@ -22,20 +22,20 @@ export default class Login extends Component {
     router: PropTypes.object.isRequired,
   };
 
-  _handleLoginSubmit() {
-    const { authActions, backPathStore } = this.props;
+  _handleSignupSubmit() {
+    const { signupActions, backPathStore } = this.props;
     const { router } = this.context;
     const data = {
       email: this.refs.email.getValue(),
       password: this.refs.password.getValue(),
     };
-    authActions.login({ data, router, backPathStore });
+    signupActions.signup({ data, router, backPathStore });
   }
 
   handleKeyDownEvent(e) {
     const EnterKeyCode = 13;
     if (e.keyCode === EnterKeyCode) {
-      this._handleLoginSubmit();
+      this._handleSignupSubmit();
     }
   }
 
@@ -54,7 +54,7 @@ export default class Login extends Component {
           floatingLabelText="Password"
           onKeyDown={::this.handleKeyDownEvent}
         />
-        <RaisedButton label="Login" onTouchTap={this._handleLoginSubmit.bind(this)} />
+        <RaisedButton label="Signup" onTouchTap={this._handleSignupSubmit.bind(this)} />
       </div>
     );
   }

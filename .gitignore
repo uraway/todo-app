@@ -4,4 +4,5 @@ npm-debug.log
 lib
 dist/bundle.js
 dist/bundle.js.map
+config/revision.js
 config/server.js
