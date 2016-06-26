@@ -8,8 +8,8 @@ export function setLoggedInState(user) {
   };
 }
 
-export function login({ data, authAgent, router, backPathStore }) {
-  return dispatch => {
+export function login({ data, authAgent, router }) {
+  return (dispatch) => {
     dispatch({
       type: actionTypes.AUTH_LOGIN_REQUESTED,
     });
@@ -19,7 +19,7 @@ export function login({ data, authAgent, router, backPathStore }) {
       path: '/login',
       data,
     })
-    .then(res => {
+    .then((res) => {
       const { email, access_token } = res.data.data.attributes;
 
       authAgent.login(email, access_token, {
@@ -29,11 +29,11 @@ export function login({ data, authAgent, router, backPathStore }) {
             type: actionTypes.AUTH_LOGIN_SUCCEED,
             user: email,
           });
-          router.push(backPathStore);
+          router.push('/todos');
         },
       });
     })
-    .catch(res => {
+    .catch((res) => {
       if (res.data === undefined) return;
 
       dispatch({
@@ -49,7 +49,7 @@ export function login({ data, authAgent, router, backPathStore }) {
 
 
 export function logout({ authAgent, router, backPath }) {
-  return dispatch => {
+  return (dispatch) => {
     authAgent.logout(() => {
       dispatch({
         type: actionTypes.AUTH_LOGGED_OUT,
