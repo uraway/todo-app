@@ -1,14 +1,7 @@
 import apiCall from '../utils/apiCall';
 import * as actionTypes from '../constants/AuthConstants';
 
-export function setLoggedInState(user) {
-  return {
-    type: actionTypes.AUTH_LOGGED_IN,
-    user,
-  };
-}
-
-export function login({ data, authAgent, router }) {
+export function login({ data }) {
   return (dispatch) => {
     dispatch({
       type: actionTypes.AUTH_LOGIN_REQUESTED,
@@ -20,27 +13,22 @@ export function login({ data, authAgent, router }) {
       data,
     })
     .then((res) => {
-      const { email, access_token } = res.data.data.attributes;
-
-      authAgent.login(email, access_token, {
-        sessionOnly: false,
-        cb: () => {
-          dispatch({
-            type: actionTypes.AUTH_LOGIN_SUCCEED,
-            user: email,
-          });
-          router.push('/todos');
-        },
+      const { email, access_token } = res.data;
+      sessionStorage.setItem('accessToken', access_token);
+      sessionStorage.setItem('email', email);
+      dispatch({
+        type: actionTypes.AUTH_LOGIN_SUCCEED,
+        data: res.data,
       });
+      console.log(`LOGIN as ${email}`);
     })
     .catch((res) => {
       if (res.data === undefined) return;
-
       dispatch({
         type: actionTypes.AUTH_LOGIN_FAILED,
         errors: {
           code: res.status,
-          data: res.data.error,
+          data: res.statusText,
         },
       });
     });
@@ -48,13 +36,12 @@ export function login({ data, authAgent, router }) {
 }
 
 
-export function logout({ authAgent, router, backPath }) {
+export function logout() {
   return (dispatch) => {
-    authAgent.logout(() => {
-      dispatch({
-        type: actionTypes.AUTH_LOGGED_OUT,
-      });
-      router.push(backPath);
+    sessionStorage.removeItem('accessToken');
+    sessionStorage.removeItem('email');
+    dispatch({
+      type: actionTypes.AUTH_LOGGED_OUT,
     });
   };
 }
