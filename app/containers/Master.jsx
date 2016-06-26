@@ -1,11 +1,15 @@
 import React, { Component, PropTypes } from 'react';
-
-// import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import Title from 'react-title-component';
+import AppBar from 'material-ui/AppBar';
 
 import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import spacing from 'material-ui/styles/spacing';
+import withWidth, { MEDIUM, LARGE } from 'material-ui/utils/withWidth';
+import { grey900 } from 'material-ui/styles/colors';
 
+// import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 /*
 import setCookieDomain from '../utils/setCookieDomain';
 import Auth from '../utils/Auth';
@@ -19,40 +23,107 @@ import * as AuthActions from '../actions/AuthActions';
   auth: state.auth,
 }))
 
-export default class Master extends Component {
+class Master extends Component {
 
   static propTypes = {
     children: PropTypes.node,
+    location: PropTypes.object,
     auth: PropTypes.object.isRequired,
+    width: PropTypes.number.isRequired,
+  };
+
+  static contextTypes = {
+    router: PropTypes.object.isRequired,
   };
 
   static childContextTypes = {
-    muiTheme: PropTypes.object.isRequired,
+    muiTheme: PropTypes.object,
+    router: PropTypes.object,
   };
 
   getChildContext() {
-    return { muiTheme: getMuiTheme(baseTheme) };
+    return {
+      muiTheme: getMuiTheme(baseTheme),
+    };
   }
 
-  _getPageTitle = (pathname) => {
-    let title;
-    switch (pathname) {
-      case '/app': { title = 'App'; break; }
-      case '/login': { title = 'LOGIN'; break; }
-      default: { title = '404 Page Not Found'; }
+  componentWillMount() {
+    this.setState({
+      muiTheme: getMuiTheme(),
+    });
+    const { auth, location } = this.props;
+    const { router } = this.context;
+    if (auth.isLoggedIn === false && location.pathname !== '/signup' && location.pathname !== '/app') {
+      router.push('/login');
     }
-    return title;
+  }
+
+  componentWillReceiveProps(nextProps, nextContext) {
+    const newMuiTheme = nextContext.muiTheme ? nextContext.muiTheme : this.state.muiTheme;
+    this.setState({
+      muiTheme: newMuiTheme,
+    });
+  }
+
+  getStyles() {
+    const styles = {
+      appBar: {
+        position: 'fixed',
+        zIndex: this.state.muiTheme.zIndex.appBar + 1,
+        top: 0,
+        left: 0,
+        right: 0,
+      },
+      root: {
+        paddingTop: spacing.desktopKeylineIncrement,
+        minHeight: 400,
+      },
+      content: {
+        margin: spacing.destopGutter,
+      },
+      contentWhenMedium: {
+        margin: `${spacing.desktopGutter * 2}px ${spacing.desktopGutter * 3}px`,
+      },
+      footer: {
+        backgroundColor: grey900,
+        textAlign: 'center',
+      },
+    };
+
+    if (this.props.width === MEDIUM || this.props.width === LARGE) {
+      styles.content = Object.assign(styles.content, styles.contentWhenMedium);
+    }
+
+    return styles;
   }
 
   render() {
-    const { children } = this.props;
+    const {
+      children,
+    } = this.props;
+
+    const styles = this.getStyles();
+
+    const {
+      prepareStyles,
+    } = this.state.muiTheme;
 
     return (
-      <div className="print-main">
-        <div className="print-main">
-          {children}
+      <div>
+        <Title render="Todos" />
+        <AppBar
+          style={styles.appBar}
+          zDepth={0}
+          iconElementLeft={<br />}
+        />
+        <div style={prepareStyles(styles.root)}>
+          <div style={prepareStyles(styles.content)}>
+            {children}
+          </div>
         </div>
       </div>
     );
   }
 }
+
+export default withWidth()(Master);
