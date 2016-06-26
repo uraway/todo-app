@@ -80,6 +80,7 @@ class Master extends Component {
       },
       content: {
         margin: spacing.destopGutter,
+        paddingLeft: 20,
       },
       contentWhenMedium: {
         margin: `${spacing.desktopGutter * 2}px ${spacing.desktopGutter * 3}px`,
