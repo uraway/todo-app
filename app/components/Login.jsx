@@ -22,20 +22,19 @@ export default class Login extends Component {
     router: PropTypes.object.isRequired,
   };
 
-  _handleLoginSubmit() {
-    const { authActions, backPathStore } = this.props;
-    const { router } = this.context;
+  handleLoginSubmit() {
+    const { authActions } = this.props;
     const data = {
       email: this.refs.email.getValue(),
       password: this.refs.password.getValue(),
     };
-    authActions.login({ data, router, backPathStore });
+    authActions.login({ data });
   }
 
   handleKeyDownEvent(e) {
     const EnterKeyCode = 13;
     if (e.keyCode === EnterKeyCode) {
-      this._handleLoginSubmit();
+      this.handleLoginSubmit();
     }
   }
 
@@ -54,7 +53,7 @@ export default class Login extends Component {
           floatingLabelText="Password"
           onKeyDown={::this.handleKeyDownEvent}
         />
-        <RaisedButton label="Login" onTouchTap={this._handleLoginSubmit.bind(this)} />
+        <RaisedButton label="Login" onTouchTap={::this.handleLoginSubmit} />
       </div>
     );
   }
