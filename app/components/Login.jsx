@@ -48,6 +48,8 @@ export default class Login extends Component {
     const { router } = this.context;
     return (
       <div>
+        <Title render={(previousTitle) => `Login -${previousTitle}`} />
+        <p>Welcome back to TODOS!!</p>
         <TextField
           ref="email"
           hintText="user@example.com"

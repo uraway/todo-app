@@ -1,7 +1,9 @@
 import React, { Component, PropTypes } from 'react';
+import Title from 'react-title-component';
+
 import { TextField, RaisedButton } from 'material-ui';
 
-export default class Login extends Component {
+export default class Signup extends Component {
 
   static propTypes = {
     signup: PropTypes.shape({
@@ -42,6 +44,7 @@ export default class Login extends Component {
   render() {
     return (
       <div>
+        <Title render={(previousTitle) => `Signup -${previousTitle}`} />
         <TextField
           ref="email"
           hintText="user@example.com"
