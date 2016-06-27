@@ -120,7 +120,7 @@ class Master extends Component {
 
     return (
       <div>
-        <Title render="Todos" />
+        <Title render="TODOS" />
         <AppBar
           title={title}
           style={styles.appBar}
