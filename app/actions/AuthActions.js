@@ -28,7 +28,7 @@ export function login({ data, router }) {
         type: actionTypes.AUTH_LOGIN_FAILED,
         errors: {
           code: res.status,
-          data: res.statusText,
+          data: res.data.error,
         },
       });
     });
