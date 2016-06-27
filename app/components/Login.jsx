@@ -24,11 +24,12 @@ export default class Login extends Component {
 
   handleLoginSubmit() {
     const { authActions } = this.props;
+    const { router } = this.context;
     const data = {
       email: this.refs.email.getValue(),
       password: this.refs.password.getValue(),
     };
-    authActions.login({ data });
+    authActions.login({ data, router });
   }
 
   handleKeyDownEvent(e) {

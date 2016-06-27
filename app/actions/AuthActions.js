@@ -1,7 +1,7 @@
 import apiCall from '../utils/apiCall';
 import * as actionTypes from '../constants/AuthConstants';
 
-export function login({ data }) {
+export function login({ data, router }) {
   return (dispatch) => {
     dispatch({
       type: actionTypes.AUTH_LOGIN_REQUESTED,
@@ -20,7 +20,7 @@ export function login({ data }) {
         type: actionTypes.AUTH_LOGIN_SUCCEED,
         data: res.data,
       });
-      console.log(`LOGIN as ${email}`);
+      router.push('/app');
     })
     .catch((res) => {
       if (res.data === undefined) return;
