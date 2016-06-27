@@ -1,5 +1,9 @@
 import React, { Component, PropTypes } from 'react';
-import { TextField, RaisedButton } from 'material-ui';
+import Title from 'react-title-component';
+
+import { TextField, RaisedButton, FlatButton } from 'material-ui';
+
+import ErrorMessage from './ui/ErrorMessage';
 
 export default class Login extends Component {
 
@@ -40,6 +44,7 @@ export default class Login extends Component {
   }
 
   render() {
+    const { errors } = this.props.auth;
     return (
       <div>
         <TextField
@@ -55,6 +60,7 @@ export default class Login extends Component {
           onKeyDown={::this.handleKeyDownEvent}
         />
         <RaisedButton label="Login" onTouchTap={::this.handleLoginSubmit} />
+        <ErrorMessage errors={errors} />
       </div>
     );
   }
