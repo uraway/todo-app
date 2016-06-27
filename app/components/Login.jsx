@@ -45,6 +45,7 @@ export default class Login extends Component {
 
   render() {
     const { errors } = this.props.auth;
+    const { router } = this.context;
     return (
       <div>
         <TextField
@@ -61,6 +62,14 @@ export default class Login extends Component {
         />
         <RaisedButton label="Login" onTouchTap={::this.handleLoginSubmit} />
         <ErrorMessage errors={errors} />
+        <br />
+        <br />
+        <p>Not a memeber yet?</p>
+        <FlatButton
+          onClick={() => router.push('/signup')}
+          label="signup here!"
+          secondary
+        />
       </div>
     );
   }
