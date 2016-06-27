@@ -103,16 +103,26 @@ class Master extends Component {
       children,
     } = this.props;
 
+    const {
+      router,
+    } = this.context;
+
     const styles = this.getStyles();
 
     const {
       prepareStyles,
     } = this.state.muiTheme;
 
+    const title =
+      router.isActive('/login') ? 'LOGIN' :
+      router.isActive('/signup') ? 'SIGNUP' :
+      router.isActive('/todo') ? 'TODOS' : '';
+
     return (
       <div>
-        <Title render="Todos" />
+        <Title render="TODOS" />
         <AppBar
+          title={title}
           style={styles.appBar}
           zDepth={0}
           iconElementLeft={<br />}

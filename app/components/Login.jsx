@@ -1,5 +1,9 @@
 import React, { Component, PropTypes } from 'react';
-import { TextField, RaisedButton } from 'material-ui';
+import Title from 'react-title-component';
+
+import { TextField, RaisedButton, FlatButton } from 'material-ui';
+
+import ErrorMessage from './ui/ErrorMessage';
 
 export default class Login extends Component {
 
@@ -24,11 +28,12 @@ export default class Login extends Component {
 
   handleLoginSubmit() {
     const { authActions } = this.props;
+    const { router } = this.context;
     const data = {
       email: this.refs.email.getValue(),
       password: this.refs.password.getValue(),
     };
-    authActions.login({ data });
+    authActions.login({ data, router });
   }
 
   handleKeyDownEvent(e) {
@@ -39,8 +44,12 @@ export default class Login extends Component {
   }
 
   render() {
+    const { errors } = this.props.auth;
+    const { router } = this.context;
     return (
       <div>
+        <Title render={(previousTitle) => `Login -${previousTitle}`} />
+        <p>Welcome back to TODOS!!</p>
         <TextField
           ref="email"
           hintText="user@example.com"
@@ -54,6 +63,15 @@ export default class Login extends Component {
           onKeyDown={::this.handleKeyDownEvent}
         />
         <RaisedButton label="Login" onTouchTap={::this.handleLoginSubmit} />
+        <ErrorMessage errors={errors} />
+        <br />
+        <br />
+        <p>Not a memeber yet?</p>
+        <FlatButton
+          onClick={() => router.push('/signup')}
+          label="signup here!"
+          secondary
+        />
       </div>
     );
   }

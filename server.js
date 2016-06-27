@@ -26,6 +26,8 @@ if (isDevelopment) {
    * Run Browsersync and use middleware for Hot Module Replacement
    */
   browserSync({
+    port: 4000,
+    ui: { port: 4010 },
     server: {
       baseDir: 'dist',
       middleware: [
