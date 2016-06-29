@@ -47,6 +47,7 @@ export default class Signup extends Component {
         <Title render={(previousTitle) => `Signup -${previousTitle}`} />
         <TextField
           ref="email"
+        <p>Welcome to TODOS! Create your account here.</p>
           hintText="user@example.com"
           floatingLabelText="Email"
           onKeyDown={::this.handleKeyDownEvent}

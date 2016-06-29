@@ -3,19 +3,17 @@ React Redux todo front-end
 
 ## Development
 
-clone this repository
-
-install dependencies:
+Install dependencies:
 ```
 $ npm install
 ```
 
-get revision:
+Fetch revision:
 ```
 $ npm run revision
 ```
 
-start webpack bundle:
+Start webpack bundle:
 ```
 $ npm start
 ```
