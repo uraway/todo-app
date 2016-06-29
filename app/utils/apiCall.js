@@ -12,7 +12,7 @@ export default (params) => {
   };
 
   if (params.auth) {
-    Object.assign(headers, params.auth);
+    Object.assign(headers, sessionStorage.getItem('accessToken'));
   }
 
   const requestParams = { method, url, responseType, headers };

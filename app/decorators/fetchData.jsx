@@ -12,19 +12,18 @@ export default (fetch) => (DecoratedComponent) => (
 
     static contextTypes = {
       store: PropTypes.object,
-      authAgent: PropTypes.object,
     };
 
     componentDidMount() {
       if (this.props.initialRender) return;
 
       const { location, params } = this.props;
-      const { authAgent, store } = this.context;
+      const { store } = this.context;
 
       fetch({
         location,
         params,
-        auth: authAgent.getAuthHeader(),
+        auth: sessionStorage.getItem('accessToken'),
         dispatch: store.dispatch,
       });
     }
