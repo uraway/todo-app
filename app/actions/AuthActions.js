@@ -20,7 +20,7 @@ export function login({ data, router }) {
         type: actionTypes.AUTH_LOGIN_SUCCEED,
         data: res.data,
       });
-      router.push('/app');
+      router.push('/todos');
     })
     .catch((res) => {
       if (res.data === undefined) res.data = 'Error: Network Error.';
