@@ -13,6 +13,9 @@ export function signup({ data, router }) {
       data,
     })
     .then((res) => {
+      const { email, access_token } = res.data;
+      sessionStorage.setItem('accessToken', access_token);
+      sessionStorage.setItem('email', email);
       dispatch({
         type: actionTypes.SIGNUP_SUCCEED,
         data: res.data,
