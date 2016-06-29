@@ -1,7 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import Title from 'react-title-component';
 
-import { TextField, RaisedButton } from 'material-ui';
+import { TextField, RaisedButton, FlatButton } from 'material-ui';
+
+import ErrorMessage from './ui/ErrorMessage';
 
 export default class Signup extends Component {
 
@@ -24,40 +26,71 @@ export default class Signup extends Component {
     router: PropTypes.object.isRequired,
   };
 
-  _handleSignupSubmit() {
-    const { signupActions, backPathStore } = this.props;
+  constructor() {
+    super();
+    this.state = {
+      errorText: '',
+    };
+  }
+
+  handleSignupSubmit = () => {
+    const { signupActions } = this.props;
     const { router } = this.context;
     const data = {
       email: this.refs.email.getValue(),
       password: this.refs.password.getValue(),
     };
-    signupActions.signup({ data, router, backPathStore });
+    signupActions.signup({ data, router });
   }
 
-  handleKeyDownEvent(e) {
+  handleKeyDownEvent = (e) => {
     const EnterKeyCode = 13;
     if (e.keyCode === EnterKeyCode) {
       this._handleSignupSubmit();
     }
   }
 
+  handlePasswordChange = (e) => {
+    const password = e.target.value;
+    if (password.length < 6) {
+      this.setState({ errorText: 'Password must be at least 6 characters length.' });
+    } else {
+      this.setState({ errorText: '' });
+    }
+  }
+
   render() {
+    const { router } = this.context;
+    const { errors } = this.props.signup;
+    const { errorText } = this.state;
+
     return (
       <div>
         <Title render={(previousTitle) => `Signup -${previousTitle}`} />
+        <p>Welcome to TODOS! Create your account.</p>
         <TextField
           ref="email"
           hintText="user@example.com"
           floatingLabelText="Email"
-          onKeyDown={::this.handleKeyDownEvent}
+          onKeyDown={this.handleKeyDownEvent}
         />
         <TextField
           ref="password"
           type="password"
           floatingLabelText="Password"
-          onKeyDown={::this.handleKeyDownEvent}
+          onKeyDown={this.handleKeyDownEvent}
+          onChange={this.handlePasswordChange}
+          errorText={errorText}
         />
-        <RaisedButton label="Signup" onTouchTap={this._handleSignupSubmit.bind(this)} />
+        <RaisedButton label="Signup" onTouchTap={this.handleSignupSubmit} />
+        <ErrorMessage errors={errors} />
+        <br />
+        <span>Do you alredy have an account?</span>
+        <FlatButton
+          onClick={() => router.push('/login')}
+          label="login here"
+          secondary
+        />
       </div>
     );
   }
