@@ -23,12 +23,12 @@ export function login({ data, router }) {
       router.push('/app');
     })
     .catch((res) => {
-      if (res.data === undefined) return;
+      if (res.data === undefined) res.data = 'Error: Netwrok Error.';
       dispatch({
         type: actionTypes.AUTH_LOGIN_FAILED,
         errors: {
           code: res.status,
-          data: res.data.error,
+          data: res.data.error ? res.data.error : res.statusText ? res.statusText : res.data,
         },
       });
     });
