@@ -13,10 +13,9 @@ export function signup({ data, router }) {
       data,
     })
     .then((res) => {
-      const { data } = res.data;
-      console.log(data);
       dispatch({
         type: actionTypes.SIGNUP_SUCCEED,
+        data: res.data,
       });
       router.push('/app');
     })
