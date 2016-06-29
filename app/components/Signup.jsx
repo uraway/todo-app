@@ -57,6 +57,10 @@ export default class Signup extends Component {
           type="password"
           floatingLabelText="Password"
           onKeyDown={::this.handleKeyDownEvent}
+        <FlatButton
+          onClick={() => router.push('/login')}
+          label="login?"
+          secondary
         />
         <RaisedButton label="Signup" onTouchTap={this._handleSignupSubmit.bind(this)} />
       </div>
