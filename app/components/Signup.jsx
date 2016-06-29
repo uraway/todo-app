@@ -3,6 +3,8 @@ import Title from 'react-title-component';
 
 import { TextField, RaisedButton } from 'material-ui';
 
+import ErrorMessage from './ui/ErrorMessage';
+
 export default class Signup extends Component {
 
   static propTypes = {
@@ -57,6 +59,9 @@ export default class Signup extends Component {
           type="password"
           floatingLabelText="Password"
           onKeyDown={::this.handleKeyDownEvent}
+        <ErrorMessage errors={errors} />
+        <br />
+        <br />
         <FlatButton
           onClick={() => router.push('/login')}
           label="login?"
