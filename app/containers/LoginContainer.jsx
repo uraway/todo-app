@@ -18,17 +18,15 @@ export default class LoginContainer extends Component {
 
   static contextTypes = {
     router: PropTypes.object,
-    backPathStore: PropTypes.string,
   };
 
   render() {
     const { dispatch, location } = this.props;
-    const { router, backPathStore } = this.context;
+    const { router } = this.context;
     return (
       <Login
         router={router}
         location={location}
-        backPathStore={backPathStore}
         authActions={bindActionCreators(AuthActions, dispatch)}
         {...this.props}
       />

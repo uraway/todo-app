@@ -10,6 +10,8 @@ export default class Login extends Component {
   static propTypes = {
     auth: PropTypes.shape({
       type: PropTypes.string,
+      data: PropTypes.object,
+      isLoggedIn: PropTypes.bool,
       isLoading: PropTypes.bool,
       errors: PropTypes.object,
     }).isRequired,
@@ -19,7 +21,6 @@ export default class Login extends Component {
     }).isRequired,
 
     location: PropTypes.object,
-    backPathStore: PropTypes.string,
   };
 
   static contextTypes = {
