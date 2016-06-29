@@ -23,7 +23,7 @@ export function login({ data, router }) {
       router.push('/app');
     })
     .catch((res) => {
-      if (res.data === undefined) res.data = 'Error: Netwrok Error.';
+      if (res.data === undefined) res.data = 'Error: Network Error.';
       dispatch({
         type: actionTypes.AUTH_LOGIN_FAILED,
         errors: {

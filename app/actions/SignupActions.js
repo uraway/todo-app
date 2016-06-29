@@ -23,7 +23,7 @@ export function signup({ data, router }) {
       router.push('/app');
     })
     .catch((res) => {
-      if (res.data === undefined) res.data = 'Error: Netwrok Error.';
+      if (res.data === undefined) res.data = 'Error: Network Error.';
       dispatch({
         type: actionTypes.SIGNUP_FAILED,
         errors: {
