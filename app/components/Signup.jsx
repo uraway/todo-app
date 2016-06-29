@@ -28,12 +28,14 @@ export default class Signup extends Component {
 
   _handleSignupSubmit() {
     const { signupActions, backPathStore } = this.props;
+  handleSignupSubmit = () => {
+    const { signupActions } = this.props;
     const { router } = this.context;
     const data = {
       email: this.refs.email.getValue(),
       password: this.refs.password.getValue(),
     };
-    signupActions.signup({ data, router, backPathStore });
+    signupActions.signup({ data, router });
   }
 
   handleKeyDownEvent = (e) => {
@@ -44,6 +46,8 @@ export default class Signup extends Component {
   }
 
   render() {
+    const { router } = this.context;
+    const { errors } = this.props.signup;
     return (
       <div>
         <Title render={(previousTitle) => `Signup -${previousTitle}`} />
@@ -61,6 +65,7 @@ export default class Signup extends Component {
           floatingLabelText="Password"
           onKeyDown={::this.handleKeyDownEvent}
           onKeyDown={this.handleKeyDownEvent}
+        <RaisedButton label="Signup" onTouchTap={this.handleSignupSubmit} />
         <ErrorMessage errors={errors} />
         <br />
         <br />
