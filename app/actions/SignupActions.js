@@ -13,6 +13,9 @@ export function signup({ data, router }) {
       data,
     })
     .then((res) => {
+      const { email, access_token } = res.data;
+      sessionStorage.setItem('accessToken', access_token);
+      sessionStorage.setItem('email', email);
       dispatch({
         type: actionTypes.SIGNUP_SUCCEED,
         data: res.data,
@@ -20,12 +23,12 @@ export function signup({ data, router }) {
       router.push('/app');
     })
     .catch((res) => {
-      if (res.data === undefined) return;
+      if (res.data === undefined) res.data = 'Error: Netwrok Error.';
       dispatch({
         type: actionTypes.SIGNUP_FAILED,
         errors: {
           code: res.status,
-          data: res.data.error ? res.data.error : res.statusText,
+          data: res.data.error ? res.data.error : res.statusText ? res.statusText : res.data,
         },
       });
     });
