@@ -36,7 +36,7 @@ export default class Signup extends Component {
     signupActions.signup({ data, router, backPathStore });
   }
 
-  handleKeyDownEvent(e) {
+  handleKeyDownEvent = (e) => {
     const EnterKeyCode = 13;
     if (e.keyCode === EnterKeyCode) {
       this._handleSignupSubmit();
@@ -53,12 +53,14 @@ export default class Signup extends Component {
           hintText="user@example.com"
           floatingLabelText="Email"
           onKeyDown={::this.handleKeyDownEvent}
+          onKeyDown={this.handleKeyDownEvent}
         />
         <TextField
           ref="password"
           type="password"
           floatingLabelText="Password"
           onKeyDown={::this.handleKeyDownEvent}
+          onKeyDown={this.handleKeyDownEvent}
         <ErrorMessage errors={errors} />
         <br />
         <br />
