@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import Title from 'react-title-component';
 
-import { TextField, RaisedButton } from 'material-ui';
+import { TextField, RaisedButton, FlatButton } from 'material-ui';
 
 import ErrorMessage from './ui/ErrorMessage';
 
@@ -26,8 +26,6 @@ export default class Signup extends Component {
     router: PropTypes.object.isRequired,
   };
 
-  _handleSignupSubmit() {
-    const { signupActions, backPathStore } = this.props;
   handleSignupSubmit = () => {
     const { signupActions } = this.props;
     const { router } = this.context;
@@ -51,20 +49,19 @@ export default class Signup extends Component {
     return (
       <div>
         <Title render={(previousTitle) => `Signup -${previousTitle}`} />
+        <p>Welcome to TODOS! Create your account here.</p>
         <TextField
           ref="email"
-        <p>Welcome to TODOS! Create your account here.</p>
           hintText="user@example.com"
           floatingLabelText="Email"
-          onKeyDown={::this.handleKeyDownEvent}
           onKeyDown={this.handleKeyDownEvent}
         />
         <TextField
           ref="password"
           type="password"
           floatingLabelText="Password"
-          onKeyDown={::this.handleKeyDownEvent}
           onKeyDown={this.handleKeyDownEvent}
+        />
         <RaisedButton label="Signup" onTouchTap={this.handleSignupSubmit} />
         <ErrorMessage errors={errors} />
         <br />
@@ -74,7 +71,6 @@ export default class Signup extends Component {
           label="login?"
           secondary
         />
-        <RaisedButton label="Signup" onTouchTap={this._handleSignupSubmit.bind(this)} />
       </div>
     );
   }
