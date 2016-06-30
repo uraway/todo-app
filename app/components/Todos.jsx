@@ -2,14 +2,14 @@ import React, { Component, PropTypes } from 'react';
 import Title from 'react-title-component';
 
 import TextField from 'material-ui/TextField';
-import { Table, TableBody, TableRow, TableRowColumn } from 'material-ui/Table';
+import Checkbox from 'material-ui/Checkbox';
 
 export default class Todos extends Component {
 
   static propTypes = {
     todos: PropTypes.shape({
       type: PropTypes.string,
-      data: PropTypes.object,
+      data: PropTypes.array,
       isLoading: PropTypes.bool,
       isCreating: PropTypes.bool,
       isUpdating: PropTypes.bool,
@@ -39,25 +39,17 @@ export default class Todos extends Component {
   constructor() {
     super();
     this.state = {
-      data: {
-        text: 'My first todo',
-      },
+      data: [],
     };
   }
 
   componentWillReceiveProps(newProps) {
     const { todos } = newProps;
-    if (todos.type === 'TODOS_LOAD_FAILED') return;
-
-    this.state = {
-      data: todos.data,
-    };
-  }
-
-  loadTodos = () => {
-    const { todosActions, auth } = this.props;
-    const params = { user_id: auth.id };
-    todosActions.loadTodos({ params });
+    if (todos.type === 'TODOS_LOAD_SUCCEED') {
+      this.setState({
+        data: todos.data,
+      });
+    }
   }
 
   render() {
@@ -65,17 +57,18 @@ export default class Todos extends Component {
     return (
       <div>
         <Title render={(previousTitle) => `Todos -${previousTitle}`} />
-        <TextField />
-        <Table>
-          <TableBody>
-            {data.map((row, index) => (
-              <TableRow key={index} selected={row.selected}>
-                <TableRowColumn>{index}</TableRowColumn>
-                <TableRowColumn>{row.text}</TableRowColumn>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+        <TextField
+          name="addTodo"
+          floatingLabelText="Add a new todo."
+        />
+      {data.map((row, index) => (
+        <ul key={index}>
+          <Checkbox
+            defaultChecked={row.completed}
+            label={row.text}
+          />
+        </ul>
+      ))}
       </div>
     );
   }
