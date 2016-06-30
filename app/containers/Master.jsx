@@ -51,11 +51,6 @@ class Master extends Component {
     this.setState({
       muiTheme: getMuiTheme(),
     });
-    const { auth, location } = this.props;
-    const { router } = this.context;
-    if (auth.isLoggedIn === false && location.pathname !== '/signup' && location.pathname !== '/app') {
-      router.push('/login');
-    }
   }
 
   componentWillReceiveProps(nextProps, nextContext) {
@@ -63,6 +58,11 @@ class Master extends Component {
     this.setState({
       muiTheme: newMuiTheme,
     });
+    const { router } = this.context;
+    const { auth, location } = this.props;
+    if (auth.isLoggedIn !== true && location.pathname !== '/login') {
+      router.push('/login');
+    }
   }
 
   getStyles() {
