@@ -2,20 +2,20 @@ import * as actionTypes from '../constants/AuthConstants';
 
 const initialState = {
   type: null,
-  user: null,
+  data: null,
   isLoggedIn: false,
   errors: null,
   isLoading: false,
 };
 
 export default function auth(state = initialState, action) {
-  const { type, user, errors } = action;
+  const { type, data, errors } = action;
 
   switch (type) {
     case actionTypes.AUTH_LOGGED_IN:
       return {
         type,
-        user,
+        data,
         isLoggedIn: true,
         errors: null,
         isLoading: false,
@@ -23,7 +23,7 @@ export default function auth(state = initialState, action) {
     case actionTypes.AUTH_LOGIN_REQUESTED:
       return {
         type,
-        user: null,
+        data: null,
         isLoggedIn: false,
         errors: null,
         isLoading: true,
@@ -31,7 +31,7 @@ export default function auth(state = initialState, action) {
     case actionTypes.AUTH_LOGIN_SUCCEED:
       return {
         type,
-        user,
+        data,
         isLoggedIn: true,
         errors: null,
         isLoading: false,
@@ -40,14 +40,14 @@ export default function auth(state = initialState, action) {
       return {
         type,
         errors,
-        user: null,
+        data: null,
         isLoggedIn: false,
         isLoading: false,
       };
     case actionTypes.AUTH_LOGGED_OUT:
       return {
         type,
-        user: null,
+        data: null,
         isLoggedIn: false,
         errors: null,
         isLoading: false,

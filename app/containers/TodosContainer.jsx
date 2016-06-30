@@ -1,17 +1,27 @@
 import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import Login from '../components/Login';
-import * as AuthActions from '../actions/AuthActions';
+
+import Todos from '../components/Todos';
+import * as TodosActions from '../actions/TodosActions';
+import fetchData from '../decorators/fetchData';
+
+@connect((state) => ({
+  todos: state.todos,
+}))
 
 @connect((state) => ({
   auth: state.auth,
 }))
 
-export default class LoginContainer extends Component {
+@fetchData(({ dispatch }) => (
+  dispatch(TodosActions.loadTodos())
+))
+
+export default class TodosContainer extends Component {
 
   static propTypes = {
-    auth: PropTypes.object.isRequired,
+    todos: PropTypes.object.isRequired,
     dispatch: PropTypes.func.isRequired,
     location: PropTypes.object,
   };
@@ -21,13 +31,12 @@ export default class LoginContainer extends Component {
   };
 
   render() {
-    const { dispatch, location } = this.props;
+    const { dispatch } = this.props;
     const { router } = this.context;
     return (
-      <Login
+      <Todos
         router={router}
-        location={location}
-        authActions={bindActionCreators(AuthActions, dispatch)}
+        todosActions={bindActionCreators(TodosActions, dispatch)}
         {...this.props}
       />
     );

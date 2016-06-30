@@ -11,8 +11,8 @@ export default (params) => {
     Accept: 'application/vnd.api+json',
   };
 
-  if (params.auth) {
-    Object.assign(headers, params.auth);
+  if (sessionStorage.getItem('accessToken')) {
+    Object.assign(headers, sessionStorage.getItem('accessToken'));
   }
 
   const requestParams = { method, url, responseType, headers };
