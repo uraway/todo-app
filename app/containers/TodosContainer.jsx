@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import Todos from '../components/Todos';
 import * as TodosActions from '../actions/TodosActions';
-// import fetchData from '../decorators/fetchData';
+import fetchData from '../decorators/fetchData';
 
 @connect((state) => ({
   todos: state.todos,
@@ -14,11 +14,9 @@ import * as TodosActions from '../actions/TodosActions';
   auth: state.auth,
 }))
 
-/*
-@fetchData(({ auth, params, dispatch }) => (
-  dispatch(TodosActions.loadTodos({ auth, params }))
+@fetchData(({ dispatch }) => (
+  dispatch(TodosActions.loadTodos())
 ))
-*/
 
 export default class TodosContainer extends Component {
 
