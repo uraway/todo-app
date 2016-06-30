@@ -1,8 +1,8 @@
 import apiCall from '../utils/apiCall';
 import * as actionTypes from '../constants/TodosConstants';
 
-export function loadTodos({ auth, params }) {
-  console.log(params);
+export function loadTodos() {
+  const userId = sessionStorage.getItem('userId');
   return (dispatch) => {
     dispatch({
       type: actionTypes.TODOS_LOAD_REQUESTED,
@@ -10,12 +10,12 @@ export function loadTodos({ auth, params }) {
 
     return apiCall({
       method: 'GET',
-      path: `users/${params.user_id}/todos`,
-      auth,
+      path: `/users/${userId}/todos`,
     })
     .then((res) => {
+      console.log(res.data);
       dispatch({
-        type: actionTypes.TODOSLOAD_SUCCEED,
+        type: actionTypes.TODOS_LOAD_SUCCEED,
         data: res.data,
       });
     })
