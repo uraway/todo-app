@@ -13,9 +13,10 @@ export function login({ data, router }) {
       data,
     })
     .then((res) => {
-      const { email, access_token } = res.data;
+      const { email, access_token, id } = res.data;
       sessionStorage.setItem('accessToken', access_token);
       sessionStorage.setItem('email', email);
+      sessionStorage.setItem('userId', id);
       dispatch({
         type: actionTypes.AUTH_LOGIN_SUCCEED,
         data: res.data,
@@ -23,12 +24,12 @@ export function login({ data, router }) {
       router.push('/todos');
     })
     .catch((res) => {
-      if (res.data === undefined) res.data = 'Error: Network Error.';
+      if (res.data === undefined) return;
       dispatch({
         type: actionTypes.AUTH_LOGIN_FAILED,
         errors: {
           code: res.status,
-          data: res.data.error ? res.data.error : res.statusText ? res.statusText : res.data,
+          data: res.data.error ? res.data.error : res.statusText,
         },
       });
     });
