@@ -2,20 +2,20 @@ import * as actionTypes from '../constants/SignupConstants';
 
 const initialState = {
   type: null,
-  user: null,
+  data: null,
   isLoggedIn: false,
   errors: null,
   isLoading: false,
 };
 
 export default function signup(state = initialState, action) {
-  const { type, user, errors } = action;
+  const { type, data, errors } = action;
 
   switch (type) {
     case actionTypes.SIGNUP_REQUESTED:
       return {
         type,
-        user,
+        data,
         isLoggedIn: false,
         errors: null,
         isLoading: true,
@@ -23,7 +23,7 @@ export default function signup(state = initialState, action) {
     case actionTypes.SIGNUP_SUCCEED:
       return {
         type,
-        user,
+        data,
         isLoggedIn: true,
         errors: null,
         isLoading: false,
@@ -32,7 +32,7 @@ export default function signup(state = initialState, action) {
       return {
         type,
         errors,
-        user: null,
+        data: null,
         isLoggedIn: false,
         isLoading: false,
       };

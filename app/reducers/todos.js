@@ -1,4 +1,4 @@
-import * as actionTypes from '../constants/SignupConstants';
+import * as actionTypes from '../constants/TodosConstants';
 
 const initialState = {
   type: null,
@@ -23,6 +23,7 @@ export default function todos(state = initialState, action) {
       };
     case actionTypes.TODOS_ADD_SUCCEED:
       return {
+        ...state,
         type,
         data,
         errors: null,
